@@ -1,0 +1,36 @@
+DOCUMENTACION DEL PROYECTO - CELULARES BIENESTAR
+
+Este archivo funciona como punto de entrada para entender el proyecto.
+
+Archivos disponibles:
+
+1. 01-arquitectura.txt
+   Explica la estructura general del proyecto, por que se organizo dentro de src/ y que hace cada carpeta.
+
+2. 02-flujo-de-datos.txt
+   Describe como se mueve la informacion entre paginas, componentes, contexto y localStorage.
+
+3. 03-inventario.txt
+   Detalla la logica de la vista principal de inventario, filtros, ordenamiento, tarjetas, modal y confirmacion.
+
+4. 04-alta-y-edicion.txt
+   Explica el formulario de alta y edicion, la validacion, el preview de imagen y el flujo automatico al guardar.
+
+5. 05-ui-y-layout.txt
+   Resume como funciona el layout general, el sidebar, el estilo visual y los componentes reutilizables.
+
+6. 06-about-y-home.txt
+   Explica la pagina de inicio y la pagina Acerca de nosotros.
+
+7. 07-modelo-de-datos.txt
+   Presenta la forma de los datos, que campos tiene un celular y como se usa el ID.
+
+Si alguien nunca vio este proyecto, lo mas recomendable es leer en este orden:
+
+1) 01-arquitectura.txt
+2) 07-modelo-de-datos.txt
+3) 02-flujo-de-datos.txt
+4) 05-ui-y-layout.txt
+5) 03-inventario.txt
+6) 04-alta-y-edicion.txt
+7) 06-about-y-home.txt

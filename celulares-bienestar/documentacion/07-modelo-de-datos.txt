@@ -1,0 +1,48 @@
+MODELO DE DATOS DEL PROYECTO
+
+El proyecto gira alrededor de un solo modelo principal: el celular.
+
+ESTRUCTURA DEL OBJETO PHONE
+
+Cada celular tiene estos campos:
+
+- id: identificador unico.
+- modelo: nombre comercial del dispositivo.
+- marca: fabricante o marca del telefono.
+- anio: año de lanzamiento o referencia del equipo.
+- precio: valor monetario del producto.
+- descripcion: texto explicativo.
+- imagenUrl: ruta local o data URL de la fotografia.
+
+POR QUE EL ID ES IMPORTANTE
+
+El ID es la llave que permite:
+
+- editar el registro correcto,
+- eliminar el registro correcto,
+- abrir el modal de detalle del producto correcto,
+- y guardar el producto en localStorage sin ambiguedad.
+
+El usuario nunca escribe el ID manualmente.
+Eso evita errores y hace que el modelo sea mas confiable.
+
+PHONE VS PHONE DRAFT
+
+El proyecto maneja dos versiones del mismo concepto:
+
+1. Phone
+   Es el objeto completo, con ID incluido.
+2. PhoneDraft
+   Es el objeto editable sin ID, usado por el formulario.
+
+Esta separacion ayuda a que el formulario se concentre en los campos de negocio y no en la logica de identificacion.
+
+DATO SEMILLA
+
+Al iniciar por primera vez, la aplicacion usa un arreglo de celulares de ejemplo.
+Eso permite que el inventario no se vea vacio y que el usuario entienda el flujo desde el primer minuto.
+
+PERSISTENCIA
+
+Cuando el inventario cambia, el estado se guarda en localStorage bajo la clave cb.inventory.v1.
+Eso significa que el catalogo sobrevive a recargas del navegador.

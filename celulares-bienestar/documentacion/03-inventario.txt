@@ -1,0 +1,116 @@
+PAGINA DE INVENTARIO
+
+La pagina de inventario es la vista mas importante del sistema porque concentra la operacion diaria.
+
+OBJETIVO
+
+Permitir que un usuario pueda:
+
+- ver todos los celulares disponibles,
+- buscar rapidamente un modelo o marca,
+- ordenar el catalogo,
+- revisar el detalle de un producto,
+- editarlo,
+- eliminarlo,
+- y navegar hacia otras secciones sin perder el contexto.
+
+ESTRUCTURA VISUAL
+
+La vista esta dividida en dos zonas principales:
+
+1. Panel superior de control.
+2. Zona inferior de tarjetas.
+
+PANEL SUPERIOR
+
+Este panel funciona como una toolbar ligera y profesional. No pretende verse pesado ni recargar la pantalla.
+
+Incluye:
+
+- total de productos registrados,
+- selector de ordenamiento,
+- campo de busqueda,
+- boton Imprimir reporte.
+
+LOGICA DEL ORDENAMIENTO
+
+El selector permite cuatro modos:
+
+- Ascendente.
+- Descendente.
+- Precio menor a mayor.
+- Precio mayor a menor.
+
+Internamente, la pagina toma el arreglo phones del contexto y lo copia antes de ordenarlo. Esto es importante porque no se debe mutar el estado original directamente.
+
+La funcion sortPhones resuelve ese ordenamiento. Primero decide el criterio y luego devuelve una nueva lista lista para pintar.
+
+LOGICA DE BUSQUEDA
+
+La busqueda funciona en tiempo real.
+
+Cada vez que el usuario escribe:
+
+1. El texto se guarda en query.
+2. El valor se normaliza a minusculas y se recortan espacios.
+3. Se filtra la lista comparando marca, modelo y descripcion.
+4. El resultado se vuelve a ordenar segun el modo activo.
+
+Esto hace que la busqueda sea dinamica y responda sin recargar la pagina.
+
+TARJETAS DE CELULAR
+
+Cada celular se muestra con una tarjeta independiente.
+
+La tarjeta enseña:
+
+- imagen,
+- marca,
+- modelo,
+- precio,
+- boton Mas informacion.
+
+La imagen siempre vive dentro de un contenedor cuadrado fijo para que el grid no se rompa si la foto original es vertical u horizontal.
+
+MODAL DE DETALLES
+
+Cuando se presiona Mas informacion, se abre un modal grande con dos columnas:
+
+- izquierda: imagen grande.
+- derecha: datos del producto.
+
+Ademas incluye botones para:
+
+- Comprar,
+- Editar,
+- Borrar.
+
+COMPORTAMIENTO DEL BOTON EDITAR
+
+Editar no modifica directamente dentro del modal.
+En vez de eso:
+
+1. Cierra el modal.
+2. Navega a la pagina de alta.
+3. Pasa el ID por query string.
+4. El formulario se autocompleta con los datos del producto.
+
+COMPORTAMIENTO DEL BORRAR
+
+Borrar abre un dialog de confirmacion para evitar eliminaciones accidentales.
+
+Si el usuario confirma:
+
+- el item se borra del contexto,
+- localStorage se actualiza,
+- y el modal se cierra.
+
+POR QUE LA PAGINA SE SIENTE PROFESIONAL
+
+La clave no esta solo en la estetica.
+La pagina esta pensada como un panel de operaciones real:
+
+- informacion resumida arriba,
+- exploracion rapida,
+- detalle profundo sin salir de contexto,
+- y acciones con confirmacion.

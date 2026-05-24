@@ -1,0 +1,57 @@
+ARQUITECTURA GENERAL DEL PROYECTO
+
+Celulares Bienestar es una aplicacion web construida con Next.js usando el App Router. Eso significa que las paginas viven dentro de src/app y no en una carpeta pages tradicional.
+
+La idea principal de la reestructura fue que el proyecto deje de verse como un CRUD escolar aislado y pase a comportarse como una aplicacion administrativa real, con una base ordenada, reutilizable y facil de mantener.
+
+ESTRUCTURA PRINCIPAL
+
+src/
+- app/
+  Contiene las rutas de la aplicacion. Cada carpeta representa una pagina o una seccion.
+- components/
+  Guarda componentes reutilizables separados por proposito: layout, inventario y UI base.
+- context/
+  Contiene el estado global del inventario.
+- hooks/
+  Incluye hooks personalizados para reutilizar logica.
+- data/
+  Alberga datos semilla para arrancar el sistema con contenido inicial.
+- types/
+  Define los tipos TypeScript del dominio del proyecto.
+- utils/
+  Funciones auxiliares que se reutilizan en varios lugares.
+
+POR QUE ESTA SEPARACION ES IMPORTANTE
+
+Antes la logica estaba mezclada dentro de las paginas. Eso funciona para algo pequeño, pero se vuelve dificil de leer y mantener cuando el proyecto crece.
+
+Ahora cada capa cumple una sola responsabilidad:
+
+- Las paginas deciden que mostrar.
+- Los componentes visuales resuelven la interfaz.
+- El contexto maneja los datos del inventario.
+- Los hooks encapsulan comportamiento repetido.
+- Los utils concentran funciones simples y reutilizables.
+
+COMO SE ENTIENDE EL PROYECTO AHORA
+
+El sistema esta pensado como una tienda de celulares con tres vistas principales:
+
+- Inventario: lista, busca, ordena, inspecciona, edita y elimina celulares.
+- Alta de celulares: permite registrar o editar un producto.
+- Acerca de nosotros: pagina institucional para dar contexto al negocio.
+
+En el nivel superior, el layout global mantiene el sidebar fijo y la estetica general.
+En el nivel intermedio, cada pagina arma su propia experiencia.
+En el nivel inferior, los componentes reutilizables evitan repetir UI y logica.
+
+VENTAJA DE ESTA ARQUITECTURA
+
+Esta organizacion hace que el proyecto sea:
+
+- mas facil de leer para una persona nueva,
+- mas simple de extender,
+- mas consistente visualmente,
+- mas facil de depurar,
+- y mas cercano a una aplicacion profesional real.

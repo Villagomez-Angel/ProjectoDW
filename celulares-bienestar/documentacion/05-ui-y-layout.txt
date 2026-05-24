@@ -1,0 +1,75 @@
+UI Y LAYOUT GENERAL
+
+La interfaz fue pensada como un dashboard moderno de tienda tecnologica.
+
+PRINCIPIOS VISUALES
+
+El diseño prioriza:
+
+- minimalismo,
+- contraste controlado,
+- sombras suaves,
+- bordes redondeados,
+- animaciones discretas,
+- y una paleta azul/cyan sobre fondos oscuros o neutros.
+
+La sensacion buscada no es la de un CRUD basico, sino la de una aplicacion empresarial moderna.
+
+LAYOUT GLOBAL
+
+El layout vive en src/app/layout.tsx y envuelve toda la aplicacion.
+
+Su trabajo es:
+
+- cargar la tipografia,
+- definir el idioma,
+- aplicar estilos globales,
+- envolver el estado global con Providers,
+- y montar el AppShell.
+
+APP SHELL
+
+AppShell mantiene la estructura general:
+
+- sidebar fijo,
+- contenido principal separado,
+- fondo atmosférico con gradientes suaves.
+
+La idea es que el sidebar nunca empuje el contenido hacia un lado.
+El contenido siempre permanece estable.
+
+SIDEBAR
+
+El sidebar es fijo y se mantiene parcialmente oculto.
+
+Comportamiento:
+
+- en desktop aparece al acercar el cursor,
+- en pantallas tactiles se puede abrir tocando el rail lateral,
+- al navegar a otra pagina puede cerrarse para no estorbar.
+
+Eso da una sensacion de menu moderno y no de menu clasico de administracion viejo.
+
+COMPONENTES REUTILIZABLES
+
+Los componentes base ayudan a mantener coherencia:
+
+- Button: variantes de accion.
+- Input: campos de texto.
+- Select: selector de ordenamiento.
+- TextArea: descripciones largas.
+- Modal: contenedor de dialogos.
+- ConfirmDialog: confirmacion destructiva.
+
+Cada uno reduce duplicacion y hace que el sistema se vea consistente.
+
+RESPONSIVIDAD
+
+Se cuida que todo funcione en pantallas pequeñas:
+
+- el grid de inventario reduce la cantidad de columnas,
+- el modal se adapta al ancho disponible,
+- el formulario se apila en mobile,
+- el sidebar sigue siendo util sin romper el layout.
+
+Esto evita que el contenido se desacomode o se salga del viewport.

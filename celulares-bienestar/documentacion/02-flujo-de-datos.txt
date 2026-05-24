@@ -1,0 +1,73 @@
+FLUJO DE DATOS DEL SISTEMA
+
+Esta aplicacion maneja un flujo de datos relativamente simple, pero esta organizada para que no se vuelva caotica.
+
+FUENTE DE VERDAD
+
+El estado principal del inventario vive en InventoryContext.
+Ese contexto contiene:
+
+- phones: lista de celulares registrados.
+- createPhone: crea un nuevo producto.
+- updatePhone: modifica un producto existente.
+- deletePhone: elimina un producto.
+- getPhoneById: busca un producto por ID.
+- sortMode: modo de ordenamiento seleccionado.
+- query: texto de busqueda.
+
+La pagina de inventario y la pagina de alta consumen ese contexto para no duplicar logica.
+
+PERSISTENCIA
+
+El inventario se guarda en localStorage mediante useLocalStorageState.
+Eso significa que si el usuario recarga la pagina, los datos siguen disponibles.
+
+El comportamiento es este:
+
+1. Cuando la app inicia, intenta leer cb.inventory.v1 desde localStorage.
+2. Si encuentra datos, los usa.
+3. Si no encuentra nada, carga los datos semilla.
+4. Cada cambio posterior se vuelve a guardar automaticamente.
+
+Este enfoque permite que la app se sienta mas real sin necesitar una base de datos externa.
+
+FLUJO GENERAL DE UNA ACCION
+
+Ejemplo: guardar un celular nuevo.
+
+1. El usuario completa el formulario en Alta de celulares.
+2. Se validan los campos.
+3. Si todo esta bien, se llama createPhone o updatePhone.
+4. El contexto actualiza el arreglo phones.
+5. localStorage recibe el nuevo estado.
+6. La app regresa a Inventario.
+7. Inventario renderiza la lista actualizada.
+
+Ejemplo: eliminar un celular.
+
+1. El usuario abre el modal de detalles.
+2. Hace clic en Borrar.
+3. Aparece un dialog de confirmacion.
+4. Si confirma, deletePhone elimina el registro.
+5. La tarjeta desaparece del inventario.
+6. El modal se cierra para evitar mostrar informacion obsoleta.
+
+Ejemplo: editar un celular.
+
+1. El usuario abre el modal.
+2. Hace clic en Editar.
+3. La app navega a /alta?edit=ID.
+4. La pagina de alta detecta el parametro edit.
+5. Busca el producto con getPhoneById.
+6. El formulario se llena automaticamente con los datos actuales.
+7. Al guardar, actualiza el item y vuelve a Inventario.
+
+POR QUE ESTE FLUJO ES BUENO
+
+Este flujo separa claramente:
+
+- lo que hace la interfaz,
+- lo que hacen los datos,
+- y lo que hace la navegacion.
+
+Eso evita que cada pagina tenga que inventar su propia logica de estado.

@@ -1,0 +1,39 @@
+PAGINA DE INICIO
+
+La pagina principal no intenta ser un landing comercial complejo.
+Su objetivo es funcionar como puerta de entrada clara hacia las secciones mas importantes.
+
+Incluye:
+
+- un bloque principal de presentacion,
+- accesos rapidos a Inventario y Alta,
+- y un recordatorio visual sobre el sidebar.
+
+El contenido esta pensado para que una persona nueva entienda de inmediato que puede hacer en el sistema.
+
+PAGINA ACERCA DE NOSOTROS
+
+Esta pagina existe para darle contexto humano y comercial al proyecto.
+
+No solo presenta informacion tecnica: tambien comunica la identidad de la tienda.
+
+Contiene:
+
+- estadisticas resumidas,
+- tarjetas de servicios,
+- mision,
+- vision,
+- y un enlace para volver al inventario.
+
+OBJETIVO DE ESTA PAGINA
+
+La pagina About ayuda a que la aplicacion no se sienta como un demo vacio.
+Le da una capa institucional y transmite que detras del sistema hay una tienda real con servicios reales.
+
+RELACION CON EL RESTO DE LA APP
+
+Aunque About no participa en el CRUD, si cumple una funcion importante:
+
+- da credibilidad al negocio,
+- aporta una experiencia de producto mas completa,
+- y equilibra la parte operativa con una parte informativa.

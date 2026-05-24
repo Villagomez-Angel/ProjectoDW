@@ -1,0 +1,74 @@
+PAGINA DE ALTA Y EDICION
+
+Esta pagina comparte el mismo formulario para dos propositos:
+
+- crear celulares nuevos,
+- editar celulares existentes.
+
+Eso evita duplicar pantallas y hace que el mantenimiento sea mucho mas simple.
+
+CAMPOS DEL FORMULARIO
+
+El formulario incluye:
+
+- Marca,
+- Modelo,
+- Año,
+- Precio,
+- Descripcion,
+- Imagen.
+
+El ID no se captura manualmente porque lo genera el sistema automaticamente desde el contexto.
+
+COMPORTAMIENTO DE EDICION
+
+Si la pagina recibe un parametro edit en la URL:
+
+1. Busca el celular correspondiente en el contexto.
+2. Toma sus datos.
+3. Llena el formulario automaticamente.
+4. Cambia el titulo de la pagina a Editar celular.
+
+Cuando el usuario guarda, se actualiza el producto existente en vez de crear uno nuevo.
+
+VALIDACIONES
+
+Antes de guardar, se valida que:
+
+- la marca no este vacia,
+- el modelo no este vacio,
+- la descripcion tenga contenido,
+- el año sea valido,
+- el precio sea mayor que cero.
+
+Si algo falla, se muestran mensajes bajo cada campo.
+
+IMAGEN Y PREVIEW
+
+La parte visual de la imagen funciona asi:
+
+- Hay un preview grande dentro de un panel lateral.
+- Si el usuario no carga una imagen, se usa generic.png.
+- Si el usuario elige un archivo, se convierte a data URL para mostrarlo de inmediato.
+
+Esto permite ver la fotografia antes de guardar.
+
+MEJORA DEL INPUT DE ARCHIVO
+
+Para que no se desborde el texto nativo del navegador, el selector de archivo se resolvio con un boton custom y una etiqueta de estado debajo.
+
+Eso hace que:
+
+- el texto no se salga del contenedor,
+- la interfaz se vea mas limpia,
+- y el usuario entienda claramente si ya selecciono una imagen.
+
+FLUJO AL GUARDAR
+
+Al guardar:
+
+- si es alta, se crea un nuevo registro,
+- si es edicion, se actualiza el existente,
+- despues se redirige automaticamente a Inventario.
+
+Ese flujo da sensacion de sistema real y no de formulario suelto.
