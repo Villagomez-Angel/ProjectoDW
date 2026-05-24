@@ -13,8 +13,8 @@ export function TextArea({
   return (
     <textarea
       className={cn(
-        "min-h-28 w-full resize-none rounded-xl bg-white/5 px-3 py-2 text-sm text-foreground ring-1 ring-white/10",
-        "placeholder:text-white/35",
+        "min-h-28 w-full resize-none rounded-xl border border-sky-200 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm transition",
+        "placeholder:text-slate-400",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent)/60",
         className
       )}

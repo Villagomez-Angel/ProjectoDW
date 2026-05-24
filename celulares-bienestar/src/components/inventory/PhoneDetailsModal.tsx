@@ -64,8 +64,8 @@ export function PhoneDetailsModal({
         }
       >
         <div className="grid gap-5 md:grid-cols-2">
-          <div className="overflow-hidden rounded-2xl bg-black/25 ring-1 ring-white/10">
-            <div className="aspect-square md:aspect-[4/5]">
+          <div className="overflow-hidden rounded-2xl bg-gradient-to-br from-white to-slate-100 ring-1 ring-slate-100">
+            <div className="aspect-square md:aspect-4/5">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={phone.imagenUrl}
@@ -77,38 +77,38 @@ export function PhoneDetailsModal({
 
           <div className="min-w-0">
             <dl className="grid gap-3">
-              <div className="rounded-xl bg-white/5 p-3 ring-1 ring-white/10">
-                <dt className="text-xs font-semibold text-white/45">ID</dt>
-                <dd className="mt-1 truncate text-sm font-semibold text-white">{phone.id}</dd>
+              <div className="rounded-xl bg-white p-3 ring-1 ring-slate-100">
+                <dt className="text-xs font-semibold text-slate-500">ID</dt>
+                <dd className="mt-1 truncate text-sm font-semibold text-slate-900">{phone.id}</dd>
               </div>
 
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                <div className="rounded-xl bg-white/5 p-3 ring-1 ring-white/10">
-                  <dt className="text-xs font-semibold text-white/45">Marca</dt>
-                  <dd className="mt-1 truncate text-sm font-semibold text-white">{phone.marca}</dd>
+                <div className="rounded-xl bg-slate-50 p-3 ring-1 ring-slate-100">
+                  <dt className="text-xs font-semibold text-slate-500">Marca</dt>
+                  <dd className="mt-1 truncate text-sm font-semibold text-slate-900">{phone.marca}</dd>
                 </div>
-                <div className="rounded-xl bg-white/5 p-3 ring-1 ring-white/10">
-                  <dt className="text-xs font-semibold text-white/45">Modelo</dt>
-                  <dd className="mt-1 truncate text-sm font-semibold text-white">{phone.modelo}</dd>
+                <div className="rounded-xl bg-white p-3 ring-1 ring-slate-100">
+                  <dt className="text-xs font-semibold text-slate-500">Modelo</dt>
+                  <dd className="mt-1 truncate text-sm font-semibold text-slate-900">{phone.modelo}</dd>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                <div className="rounded-xl bg-white/5 p-3 ring-1 ring-white/10">
-                  <dt className="text-xs font-semibold text-white/45">Año</dt>
-                  <dd className="mt-1 text-sm font-semibold text-white">{phone.anio}</dd>
+                <div className="rounded-xl bg-white p-3 ring-1 ring-slate-100">
+                  <dt className="text-xs font-semibold text-slate-500">Año</dt>
+                  <dd className="mt-1 text-sm font-semibold text-slate-900">{phone.anio}</dd>
                 </div>
-                <div className="rounded-xl bg-white/5 p-3 ring-1 ring-white/10">
-                  <dt className="text-xs font-semibold text-white/45">Precio</dt>
-                  <dd className="mt-1 text-sm font-semibold text-[var(--accent)]">
+                <div className="rounded-xl bg-slate-50 p-3 ring-1 ring-slate-100">
+                  <dt className="text-xs font-semibold text-slate-500">Precio</dt>
+                  <dd className="mt-1 text-sm font-semibold text-sky-700">
                     {formatCurrency(phone.precio)}
                   </dd>
                 </div>
               </div>
 
-              <div className="rounded-xl bg-white/5 p-3 ring-1 ring-white/10">
-                <dt className="text-xs font-semibold text-white/45">Descripción</dt>
-                <dd className="mt-2 text-sm leading-relaxed text-white/75">{phone.descripcion}</dd>
+              <div className="rounded-xl bg-white p-3 ring-1 ring-slate-100">
+                <dt className="text-xs font-semibold text-slate-500">Descripción</dt>
+                <dd className="mt-2 text-sm leading-relaxed text-slate-600">{phone.descripcion}</dd>
               </div>
             </dl>
           </div>

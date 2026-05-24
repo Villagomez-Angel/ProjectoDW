@@ -6,6 +6,7 @@ import { PhoneDetailsModal } from "@/components/inventory/PhoneDetailsModal";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { useInventory, type SortMode } from "@/context/InventoryContext";
 import type { Phone } from "@/types/inventory";
 
@@ -59,39 +60,38 @@ export default function InventarioPage() {
 
   return (
     <div className="space-y-6">
-      <header>
-        <h1 className="text-2xl font-semibold text-white">Inventario</h1>
-        <p className="mt-1 text-sm text-white/60">
-          Panel de control + tarjetas responsivas. Todo el contenido se mantiene estable.
-        </p>
-      </header>
+      <PageHeader
+        eyebrow="Inventario"
+        title="Gestiona tus celulares"
+        description="Explora, ordena y busca entre los productos registrados en tu tienda."
+      />
 
       {/* DIV SUPERIOR: toolbar */}
-      <section className="rounded-2xl bg-white/3 p-4 ring-1 ring-white/10 backdrop-blur-sm">
+      <section className="rounded-3xl border border-slate-200 bg-gradient-to-r from-white to-slate-50 p-4 shadow-sm backdrop-blur-sm sm:p-5">
         <div className="grid items-center gap-3 lg:grid-cols-[220px_220px_1fr_auto]">
-          <div className="rounded-xl bg-white/5 p-3 ring-1 ring-white/10">
-            <div className="text-xs font-semibold text-white/45">Total registrados</div>
-            <div className="mt-1 text-xl font-semibold text-white">{phones.length}</div>
+          <div className="rounded-xl border border-slate-200 bg-white p-3">
+            <div className="text-xs font-semibold text-slate-500">Total registrados</div>
+            <div className="mt-1 text-xl font-semibold text-slate-900">{phones.length}</div>
           </div>
 
-          <div className="min-w-0">
-            <div className="text-xs font-semibold text-white/45">Ordenar</div>
+          <div className="min-w-0 rounded-xl bg-white p-2 ring-1 ring-slate-100">
+            <div className="text-xs font-semibold text-slate-500">Ordenar</div>
             <div className="mt-2">
               <Select
                 value={sortMode}
                 onChange={(e) => setSortMode(e.target.value as SortMode)}
                 aria-label="Ordenar"
               >
-                <option className="bg-slate-950 text-white" value="ASC">Ascendente</option>
-                <option className="bg-slate-950 text-white" value="DESC">Descendente</option>
-                <option className="bg-slate-950 text-white" value="PRICE_ASC">Precio menor a mayor</option>
-                <option className="bg-slate-950 text-white" value="PRICE_DESC">Precio mayor a menor</option>
+                <option value="ASC">Ascendente</option>
+                <option value="DESC">Descendente</option>
+                <option value="PRICE_ASC">Precio menor a mayor</option>
+                <option value="PRICE_DESC">Precio mayor a menor</option>
               </Select>
             </div>
           </div>
 
-          <div className="min-w-0">
-            <div className="text-xs font-semibold text-white/45">Buscar</div>
+          <div className="min-w-0 rounded-xl bg-slate-50 p-2 ring-1 ring-slate-100">
+            <div className="text-xs font-semibold text-slate-500">Buscar</div>
             <div className="mt-2">
               <Input
                 value={query}
@@ -126,9 +126,9 @@ export default function InventarioPage() {
         </div>
 
         {filtered.length === 0 ? (
-          <div className="mt-10 rounded-2xl bg-white/5 p-6 text-center ring-1 ring-white/10">
-            <div className="text-sm font-semibold text-white">Sin resultados</div>
-            <div className="mt-1 text-sm text-white/60">
+          <div className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center shadow-sm">
+            <div className="text-sm font-semibold text-slate-900">Sin resultados</div>
+            <div className="mt-1 text-sm text-slate-600">
               Prueba con otra búsqueda u orden.
             </div>
           </div>

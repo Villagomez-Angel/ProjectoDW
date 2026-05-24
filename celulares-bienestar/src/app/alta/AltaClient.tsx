@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { TextArea } from "@/components/ui/TextArea";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { useInventory } from "@/context/InventoryContext";
 import type { PhoneDraft } from "@/types/inventory";
 
@@ -113,24 +114,21 @@ function AltaForm({
 
   return (
     <div className="space-y-6">
-      <header>
-        <h1 className="text-2xl font-semibold text-white">
-          {editingId ? "Editar celular" : "Alta de celulares"}
-        </h1>
-        <p className="mt-1 text-sm text-white/60">
-          Formulario moderno con validación y preview. El ID se genera automáticamente.
-        </p>
-      </header>
+      <PageHeader
+        eyebrow={editingId ? "Edición" : "Alta de celulares"}
+        title={editingId ? "Editar celular" : "Registrar nuevo producto"}
+        description="Llena los campos para agregar un nuevo celular al inventario. Puedes editar la información o cambiar la foto cuando quieras."
+      />
 
       <form
         onSubmit={onSubmit}
-        className="rounded-3xl bg-[var(--panel)] p-6 ring-1 ring-white/10 sm:p-8"
+        className="rounded-3xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-6 shadow-sm sm:p-8"
       >
         <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
           <div className="space-y-5">
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
-                <label className="text-xs font-semibold text-white/55">Marca</label>
+                <label className="text-xs font-semibold text-slate-500">Marca</label>
                 <div className="mt-2">
                   <Input
                     value={draft.marca}
@@ -142,7 +140,7 @@ function AltaForm({
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-white/55">Modelo</label>
+                <label className="text-xs font-semibold text-slate-500">Modelo</label>
                 <div className="mt-2">
                   <Input
                     value={draft.modelo}
@@ -158,7 +156,7 @@ function AltaForm({
 
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
-                <label className="text-xs font-semibold text-white/55">Año</label>
+                <label className="text-xs font-semibold text-slate-500">Año</label>
                 <div className="mt-2">
                   <Input
                     value={String(draft.anio)}
@@ -174,7 +172,7 @@ function AltaForm({
                 </div>
               </div>
               <div>
-                <label className="text-xs font-semibold text-white/55">Precio (MXN)</label>
+                <label className="text-xs font-semibold text-slate-500">Precio (MXN)</label>
                 <div className="mt-2">
                   <Input
                     value={draft.precio ? String(draft.precio) : ""}
@@ -193,7 +191,7 @@ function AltaForm({
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-white/55">Descripción</label>
+              <label className="text-xs font-semibold text-slate-500">Descripción</label>
               <div className="mt-2">
                 <TextArea
                   value={draft.descripcion}
@@ -215,12 +213,12 @@ function AltaForm({
           </div>
 
           <div className="space-y-4">
-            <div className="rounded-2xl bg-white/5 p-4 ring-1 ring-white/10">
-              <div className="text-xs font-semibold text-white/55">Foto / Imagen</div>
-              <p className="mt-1 text-xs text-white/45">
+            <div className="rounded-2xl border border-slate-200 bg-white p-4">
+              <div className="text-xs font-semibold text-slate-500">Foto / Imagen</div>
+              <p className="mt-1 text-xs text-slate-500">
                 Si no agregas imagen, se usa <span className="font-semibold">/public/generic.png</span>.
               </p>
-              <div className="mt-4 overflow-hidden rounded-xl bg-black/25 ring-1 ring-white/10">
+              <div className="mt-4 overflow-hidden rounded-xl bg-slate-50 ring-1 ring-slate-200">
                 <div className="aspect-square">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={draft.imagenUrl} alt="Preview" className="h-full w-full object-cover" />
@@ -249,16 +247,16 @@ function AltaForm({
 
                 <label
                   htmlFor="phone-image-upload"
-                  className="inline-flex cursor-pointer items-center justify-center rounded-xl bg-white/8 px-4 py-2 text-sm font-semibold text-white ring-1 ring-white/10 transition hover:bg-white/12"
+                  className="inline-flex cursor-pointer items-center justify-center rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-sky-700"
                 >
                   Seleccionar archivo
                 </label>
 
-                <div className="w-full rounded-xl bg-black/20 px-3 py-2 text-xs text-white/60 ring-1 ring-white/10 break-words">
+                <div className="w-full rounded-xl border border-dashed border-slate-200 bg-slate-50 px-3 py-2 text-xs wrap-break-word text-slate-500">
                   {selectedFileName}
                 </div>
 
-                {imageBusy ? <p className="text-xs text-white/55">Procesando imagen…</p> : null}
+                {imageBusy ? <p className="text-xs text-sky-600">Procesando imagen…</p> : null}
               </div>
             </div>
           </div>

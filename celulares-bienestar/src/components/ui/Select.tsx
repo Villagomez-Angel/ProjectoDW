@@ -14,11 +14,11 @@ export function Select({
   return (
     <select
       className={cn(
-        "h-11 w-full appearance-none rounded-xl bg-white/5 px-3 text-sm text-foreground ring-1 ring-white/10",
+        "h-11 w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 shadow-sm transition",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent)/60",
         className
       )}
-      style={{ colorScheme: "dark" }}
+      style={{ colorScheme: "light" }}
       {...props}
     />
   );

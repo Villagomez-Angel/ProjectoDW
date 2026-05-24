@@ -34,7 +34,7 @@ export function Sidebar() {
     >
       {/* glow rail visible when collapsed */}
       <div className="absolute right-0 top-0 h-full w-11 sm:w-5">
-        <div className="mx-auto h-full w-[3px] bg-[var(--accent)] opacity-80 shadow-[0_0_18px_rgba(34,211,238,0.65)]" />
+        <div className="mx-auto h-full w-[3px] bg-sky-600 opacity-90 shadow-[0_0_18px_rgba(37,99,235,0.28)]" />
         <button
           type="button"
           aria-label={pinnedOpen ? "Cerrar menú" : "Abrir menú"}
@@ -43,10 +43,10 @@ export function Sidebar() {
         />
       </div>
 
-      <div className="h-full w-full bg-[var(--panel)]/95 backdrop-blur-md ring-1 ring-white/10">
+      <div className="h-full w-full border-r border-sky-100 bg-gradient-to-b from-sky-50/95 via-sky-100/85 to-blue-100/80 backdrop-blur-md shadow-[0_18px_50px_rgba(15,23,42,0.08)]">
         <div className="px-5 py-5">
-          <div className="text-sm font-semibold tracking-wide text-white/90">Celulares Bienestar</div>
-          <div className="mt-1 text-xs text-white/50">Inventario · Ventas · Servicio</div>
+          <div className="text-sm font-semibold tracking-wide text-slate-900">Celulares Bienestar</div>
+          <div className="mt-1 text-xs text-slate-500">Inventario · Ventas · Servicio</div>
         </div>
 
         <nav className="px-3 pb-5">
@@ -60,15 +60,15 @@ export function Sidebar() {
                     className={cn(
                       "flex items-center gap-3 rounded-xl px-3 py-3 text-sm transition",
                       active
-                        ? "bg-white/8 text-white ring-1 ring-white/10"
-                        : "text-white/75 hover:bg-white/5 hover:text-white"
+                        ? "bg-white/80 text-slate-900 ring-1 ring-white/70"
+                        : "text-slate-700 hover:bg-white/55 hover:text-slate-900"
                     )}
                     onClick={() => setPinnedOpen(false)}
                   >
                     <span
                       className={cn(
                         "h-2 w-2 rounded-full",
-                        active ? "bg-[var(--accent)]" : "bg-white/25"
+                        active ? "bg-sky-700" : "bg-sky-200"
                       )}
                     />
                     <span className="truncate">{item.label}</span>

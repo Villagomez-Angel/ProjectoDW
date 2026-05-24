@@ -21,12 +21,12 @@ export function Button({
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent)/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         "disabled:opacity-60 disabled:cursor-not-allowed",
         variant === "primary" &&
-          "bg-(--accent) text-(--accent-foreground) hover:brightness-110",
+          "bg-sky-600 text-white hover:bg-sky-700",
         variant === "secondary" &&
-          "bg-white/5 text-foreground ring-1 ring-white/10 hover:bg-white/8",
+          "bg-white text-slate-900 ring-1 ring-slate-200 hover:bg-slate-50",
         variant === "danger" &&
-          "bg-(--danger) text-white hover:brightness-110",
-        variant === "ghost" && "bg-transparent text-foreground hover:bg-white/5",
+          "bg-rose-600 text-white hover:bg-rose-700",
+        variant === "ghost" && "bg-transparent text-slate-700 hover:bg-slate-100",
         className
       )}
       {...props}
