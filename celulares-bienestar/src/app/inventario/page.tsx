@@ -43,7 +43,7 @@ function sortPhones(phones: Phone[], mode: SortMode) {
 }
 
 export default function InventarioPage() {
-  const { phones, sortMode, setSortMode, query, setQuery } = useInventory();
+  const { phones, hydrated, sortMode, setSortMode, query, setQuery } = useInventory();
   const [selected, setSelected] = React.useState<Phone | null>(null);
   const [open, setOpen] = React.useState(false);
 
@@ -57,6 +57,36 @@ export default function InventarioPage() {
       : phones;
     return sortPhones(base, sortMode);
   }, [phones, q, sortMode]);
+
+  if (!hydrated) {
+    return (
+      <div className="space-y-6">
+        <PageHeader
+          eyebrow="Inventario"
+          title="Gestiona tus celulares"
+          description="Cargando tu inventario guardado para evitar cambios visuales al refrescar."
+        />
+
+        <section className="rounded-3xl border border-sky-100 bg-white/80 p-6 shadow-sm backdrop-blur-sm">
+          <div className="grid gap-4 lg:grid-cols-[220px_220px_1fr_auto]">
+            <div className="h-[92px] rounded-xl bg-sky-50 ring-1 ring-sky-100 animate-pulse" />
+            <div className="h-[92px] rounded-xl bg-sky-50 ring-1 ring-sky-100 animate-pulse" />
+            <div className="h-[92px] rounded-xl bg-sky-50 ring-1 ring-sky-100 animate-pulse" />
+            <div className="h-[92px] rounded-xl bg-sky-100 ring-1 ring-sky-200 animate-pulse" />
+          </div>
+        </section>
+
+        <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <div
+              key={index}
+              className="h-[320px] rounded-2xl border border-sky-100 bg-white/85 shadow-sm animate-pulse"
+            />
+          ))}
+        </section>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">

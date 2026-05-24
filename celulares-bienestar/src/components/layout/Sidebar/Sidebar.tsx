@@ -24,7 +24,7 @@ export function Sidebar() {
   return (
     <aside
       className={cn(
-        "group fixed left-0 top-0 z-40 h-dvh w-[280px]",
+        "group fixed left-0 top-0 z-40 h-dvh w-[280px] overflow-visible",
         "transition-transform duration-300 ease-out",
         pinnedOpen
           ? "translate-x-0"
@@ -32,19 +32,25 @@ export function Sidebar() {
       )}
       aria-label="Menú lateral"
     >
-      {/* glow rail visible when collapsed */}
-      <div className="absolute right-0 top-0 h-full w-11 sm:w-5">
-        <div className="mx-auto h-full w-[3px] bg-sky-600 opacity-90 shadow-[0_0_18px_rgba(37,99,235,0.28)]" />
+      {/* blue sticker that highlights the sidebar edge */}
+      <div className="absolute -right-12 -top-1 h-16 w-16 sm:-right-14 sm:-top-2 sm:h-[72px] sm:w-18">
         <button
           type="button"
           aria-label={pinnedOpen ? "Cerrar menú" : "Abrir menú"}
-          className="absolute inset-0 rounded-l-xl bg-transparent"
+          className={cn(
+            "absolute inset-0 flex flex-col items-center justify-center gap-1 rounded-l-2xl rounded-r-xl border border-sky-200",
+            "bg-sky-600 text-white shadow-[0_18px_40px_rgba(37,99,235,0.42)] transition hover:-translate-y-0.5 hover:bg-sky-500"
+          )}
           onClick={() => setPinnedOpen((v) => !v)}
         />
+        <span className="pointer-events-none absolute inset-y-0 left-0 w-1.5 rounded-l-2xl bg-sky-300/85" />
+        <span className="pointer-events-none absolute left-1/2 top-4 h-0.5 w-5 -translate-x-1/2 rounded-full bg-white/95 shadow-sm sm:top-5 sm:w-6" />
+        <span className="pointer-events-none absolute left-1/2 top-7 h-0.5 w-4 -translate-x-1/2 rounded-full bg-white/95 shadow-sm sm:top-8 sm:w-5" />
+        <span className="pointer-events-none absolute left-1/2 top-10 h-0.5 w-5 -translate-x-1/2 rounded-full bg-white/95 shadow-sm sm:top-11 sm:w-6" />
       </div>
 
       <div className="h-full w-full border-r border-sky-100 bg-gradient-to-b from-sky-50/95 via-sky-100/85 to-blue-100/80 backdrop-blur-md shadow-[0_18px_50px_rgba(15,23,42,0.08)]">
-        <div className="px-5 py-5">
+        <div className="px-5 py-5 pr-16">
           <div className="text-sm font-semibold tracking-wide text-slate-900">Celulares Bienestar</div>
           <div className="mt-1 text-xs text-slate-500">Inventario · Ventas · Servicio</div>
         </div>
