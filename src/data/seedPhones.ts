@@ -15,7 +15,7 @@ export const seedPhones: Phone[] = [
     precio: 19999,
     descripcion:
       "Smartphone premium con pantalla AMOLED de alta tasa de refresco, excelente cámara y rendimiento de primera.",
-    imagenUrl: "/generic.png",
+    imagenUrl: "/localPhones/generic.png",
   },
   {
     id: "seed-iphone-15-pro",
@@ -25,7 +25,7 @@ export const seedPhones: Phone[] = [
     precio: 26999,
     descripcion:
       "Equipo de gama alta con gran desempeño, ecosistema robusto y un sistema de cámaras ideal para foto y video.",
-    imagenUrl: "/generic.png",
+    imagenUrl: "/localPhones/generic.png",
   },
   {
     id: "seed-pixel-9",
@@ -35,6 +35,6 @@ export const seedPhones: Phone[] = [
     precio: 17999,
     descripcion:
       "Android puro con IA, cámara excelente y actualizaciones directas. Ideal para quienes quieren simplicidad y potencia.",
-    imagenUrl: "/generic.png",
+    imagenUrl: "/localPhones/generic.png",
   },
 ];

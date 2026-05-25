@@ -1,5 +1,6 @@
 import type { Phone } from "@/types/inventory";
 import { Button } from "@/components/ui/Button";
+import { PhoneImage } from "@/components/inventory/PhoneImage";
 import { formatCurrency } from "@/utils/format";
 
 /**
@@ -12,9 +13,8 @@ export function PhoneCard({ phone, onMore }: { phone: Phone; onMore: () => void 
   return (
     <div className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-[0_18px_55px_rgba(15,23,42,0.08)]">
       <div className="p-4">
-        <div className="aspect-square w-full overflow-hidden rounded-xl bg-gradient-to-br from-white to-slate-100 ring-1 ring-slate-100">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+        <div className="aspect-square w-full overflow-hidden rounded-xl bg-linear-to-br from-white to-slate-100 ring-1 ring-slate-100">
+          <PhoneImage
             src={phone.imagenUrl}
             alt={`${phone.marca} ${phone.modelo}`}
             className="h-full w-full object-cover"

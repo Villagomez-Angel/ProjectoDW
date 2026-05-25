@@ -6,6 +6,7 @@ import type { Phone } from "@/types/inventory";
 import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
+import { PhoneImage } from "@/components/inventory/PhoneImage";
 import { formatCurrency } from "@/utils/format";
 import { useInventory } from "@/context/InventoryContext";
 
@@ -64,10 +65,9 @@ export function PhoneDetailsModal({
         }
       >
         <div className="grid gap-5 md:grid-cols-2">
-          <div className="overflow-hidden rounded-2xl bg-gradient-to-br from-white to-slate-100 ring-1 ring-slate-100">
+          <div className="overflow-hidden rounded-2xl bg-linear-to-br from-white to-slate-100 ring-1 ring-slate-100">
             <div className="aspect-square md:aspect-4/5">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <PhoneImage
                 src={phone.imagenUrl}
                 alt={`${phone.marca} ${phone.modelo}`}
                 className="h-full w-full object-cover"
