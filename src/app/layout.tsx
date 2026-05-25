@@ -19,6 +19,8 @@ export const metadata: Metadata = {
   description: "Sistema moderno de gestión de inventario para tienda de celulares.",
 };
 
+export const runtime = "nodejs";
+
 /**
  * Layout raíz de la aplicación.
  *

@@ -2,18 +2,23 @@
 
 import * as React from "react";
 import type { Phone, PhoneDraft, PhoneId } from "@/types/inventory";
-import { seedPhones } from "@/data/seedPhones";
-import { useLocalStorageState } from "@/hooks/useLocalStorageState";
+import {
+  createPhone as createPhoneAction,
+  deletePhone as deletePhoneAction,
+  importPhones as importPhonesAction,
+  listPhones as listPhonesAction,
+  updatePhone as updatePhoneAction,
+} from "@/app/actions/inventory";
 
 type SortMode = "ASC" | "DESC" | "PRICE_ASC" | "PRICE_DESC";
 
 type InventoryContextValue = {
   phones: Phone[];
-  hydrated: boolean;
+  loading: boolean;
 
-  createPhone: (draft: PhoneDraft) => Phone;
-  updatePhone: (id: PhoneId, draft: PhoneDraft) => void;
-  deletePhone: (id: PhoneId) => void;
+  createPhone: (draft: PhoneDraft) => Promise<Phone>;
+  updatePhone: (id: PhoneId, draft: PhoneDraft) => Promise<Phone>;
+  deletePhone: (id: PhoneId) => Promise<void>;
 
   getPhoneById: (id: PhoneId) => Phone | undefined;
 
@@ -26,54 +31,79 @@ type InventoryContextValue = {
 const InventoryContext = React.createContext<InventoryContextValue | null>(null);
 
 /**
- * Genera IDs seguros para productos nuevos.
- *
- * Usa `crypto.randomUUID()` cuando está disponible y cae a un identificador
- * derivado de tiempo + aleatoriedad como respaldo para entornos antiguos.
- */
-function generateId() {
-  if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
-    return crypto.randomUUID();
-  }
-  return `id-${Date.now()}-${Math.random().toString(16).slice(2)}`;
-}
-
-/**
  * Provider del inventario.
  *
  * Centraliza CRUD, búsqueda y ordenamiento para que las páginas no manejen
  * lógica de dominio directamente y puedan enfocarse en la UI.
  */
 export function InventoryProvider({ children }: { children: React.ReactNode }) {
-  const { state: phones, setState: setPhones, hydrated } = useLocalStorageState<Phone[]>(
-    "cb.inventory.v1",
-    seedPhones
-  );
+  const [phones, setPhones] = React.useState<Phone[]>([]);
+  const [loading, setLoading] = React.useState(true);
 
   const [sortMode, setSortMode] = React.useState<SortMode>("ASC");
   const [query, setQuery] = React.useState("");
 
+  React.useEffect(() => {
+    let active = true;
+
+    const migrateLocalInventory = async () => {
+      if (typeof window === "undefined") return;
+      const key = "cb.inventory.v1";
+      const raw = window.localStorage.getItem(key);
+      if (!raw) return;
+      try {
+        const parsed = JSON.parse(raw) as Phone[];
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          await importPhonesAction(parsed);
+        }
+      } catch {
+        // ignore invalid local storage
+      } finally {
+        window.localStorage.removeItem(key);
+      }
+    };
+
+    const load = async () => {
+      setLoading(true);
+      try {
+        await migrateLocalInventory();
+        const data = await listPhonesAction();
+        if (active) setPhones(data);
+      } finally {
+        if (active) setLoading(false);
+      }
+    };
+
+    void load();
+    return () => {
+      active = false;
+    };
+  }, []);
+
   const createPhone = React.useCallback(
-    (draft: PhoneDraft) => {
-      const created: Phone = { id: generateId(), ...draft };
+    async (draft: PhoneDraft) => {
+      const created = await createPhoneAction(draft);
       setPhones((prev) => [created, ...prev]);
       return created;
     },
-    [setPhones]
+    []
   );
 
   const updatePhone = React.useCallback(
-    (id: PhoneId, draft: PhoneDraft) => {
-      setPhones((prev) => prev.map((p) => (p.id === id ? { ...p, ...draft, id } : p)));
+    async (id: PhoneId, draft: PhoneDraft) => {
+      const updated = await updatePhoneAction(id, draft);
+      setPhones((prev) => prev.map((p) => (p.id === id ? updated : p)));
+      return updated;
     },
-    [setPhones]
+    []
   );
 
   const deletePhone = React.useCallback(
-    (id: PhoneId) => {
+    async (id: PhoneId) => {
+      await deletePhoneAction(id);
       setPhones((prev) => prev.filter((p) => p.id !== id));
     },
-    [setPhones]
+    []
   );
 
   const getPhoneById = React.useCallback(
@@ -85,7 +115,7 @@ export function InventoryProvider({ children }: { children: React.ReactNode }) {
 
   const value: InventoryContextValue = {
     phones,
-    hydrated,
+    loading,
     createPhone,
     updatePhone,
     deletePhone,

@@ -19,18 +19,6 @@ function toNumber(value: string) {
   return Number.isFinite(n) ? n : 0;
 }
 
-/**
- * Lee una imagen local y la convierte en data URL para el preview.
- */
-async function fileToDataUrl(file: File) {
-  return await new Promise<string>((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onerror = () => reject(new Error("No se pudo leer la imagen"));
-    reader.onload = () => resolve(String(reader.result));
-    reader.readAsDataURL(file);
-  });
-}
-
 export default function AltaClient() {
   const router = useRouter();
   const params = useSearchParams();
@@ -62,9 +50,9 @@ export default function AltaClient() {
               imagenUrl: "/generic.png",
             }
       }
-      onSave={(draft) => {
-        if (editing) updatePhone(editing.id, draft);
-        else createPhone(draft);
+      onSave={async (draft) => {
+        if (editing) await updatePhone(editing.id, draft);
+        else await createPhone(draft);
         router.push("/inventario");
       }}
       onCancel={() => router.push("/inventario")}
@@ -80,13 +68,11 @@ function AltaForm({
 }: {
   editingId?: string;
   initialDraft: PhoneDraft;
-  onSave: (draft: PhoneDraft) => void;
+  onSave: (draft: PhoneDraft) => Promise<void>;
   onCancel: () => void;
 }) {
   const [draft, setDraft] = React.useState<PhoneDraft>(initialDraft);
   const [errors, setErrors] = React.useState<FormErrors>({});
-  const [imageBusy, setImageBusy] = React.useState(false);
-  const [selectedFileName, setSelectedFileName] = React.useState("Ningún archivo seleccionado");
 
   /**
    * Valida los campos del formulario antes de persistir el producto.
@@ -103,13 +89,17 @@ function AltaForm({
     return e;
   }, []);
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const e2 = validate(draft);
     setErrors(e2);
     if (Object.keys(e2).length > 0) return;
 
-    onSave(draft);
+    const payload = {
+      ...draft,
+      imagenUrl: draft.imagenUrl?.trim() ? draft.imagenUrl : "/generic.png",
+    };
+    await onSave(payload);
   };
 
   return (
@@ -216,47 +206,25 @@ function AltaForm({
             <div className="rounded-2xl border border-slate-200 bg-white p-4">
               <div className="text-xs font-semibold text-slate-500">Foto / Imagen</div>
               <p className="mt-1 text-xs text-slate-500">
-                Si no agregas imagen, se usa <span className="font-semibold">/public/generic.png</span>.
+                Usa una URL o ruta local (ej. <span className="font-semibold">/generic.png</span>).
               </p>
+
+              <div className="mt-4">
+                <label className="text-xs font-semibold text-slate-500">URL de imagen</label>
+                <div className="mt-2">
+                  <Input
+                    value={draft.imagenUrl}
+                    onChange={(e) => setDraft((p) => ({ ...p, imagenUrl: e.target.value }))}
+                    placeholder="/generic.png"
+                  />
+                </div>
+              </div>
+
               <div className="mt-4 overflow-hidden rounded-xl bg-slate-50 ring-1 ring-slate-200">
                 <div className="aspect-square">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={draft.imagenUrl} alt="Preview" className="h-full w-full object-cover" />
                 </div>
-              </div>
-
-              <div className="mt-4 space-y-3">
-                <input
-                  id="phone-image-upload"
-                  type="file"
-                  accept="image/*"
-                  className="sr-only"
-                  onChange={async (e) => {
-                    const file = e.target.files?.[0];
-                    if (!file) return;
-                    setImageBusy(true);
-                    setSelectedFileName(file.name);
-                    try {
-                      const dataUrl = await fileToDataUrl(file);
-                      setDraft((p) => ({ ...p, imagenUrl: dataUrl }));
-                    } finally {
-                      setImageBusy(false);
-                    }
-                  }}
-                />
-
-                <label
-                  htmlFor="phone-image-upload"
-                  className="inline-flex cursor-pointer items-center justify-center rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-sky-700"
-                >
-                  Seleccionar archivo
-                </label>
-
-                <div className="w-full rounded-xl border border-dashed border-slate-200 bg-slate-50 px-3 py-2 text-xs wrap-break-word text-slate-500">
-                  {selectedFileName}
-                </div>
-
-                {imageBusy ? <p className="text-xs text-sky-600">Procesando imagen…</p> : null}
               </div>
             </div>
           </div>

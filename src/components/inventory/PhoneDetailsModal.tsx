@@ -122,7 +122,7 @@ export function PhoneDetailsModal({
         confirmText="Sí, eliminar"
         cancelText="Cancelar"
         onConfirm={() => {
-          deletePhone(phone.id);
+          void deletePhone(phone.id);
           onClose();
         }}
         onClose={() => setConfirmOpen(false)}

@@ -43,7 +43,7 @@ function sortPhones(phones: Phone[], mode: SortMode) {
 }
 
 export default function InventarioPage() {
-  const { phones, hydrated, sortMode, setSortMode, query, setQuery } = useInventory();
+  const { phones, loading, sortMode, setSortMode, query, setQuery } = useInventory();
   const [selected, setSelected] = React.useState<Phone | null>(null);
   const [open, setOpen] = React.useState(false);
 
@@ -58,7 +58,7 @@ export default function InventarioPage() {
     return sortPhones(base, sortMode);
   }, [phones, q, sortMode]);
 
-  if (!hydrated) {
+  if (loading) {
     return (
       <div className="space-y-6">
         <PageHeader
