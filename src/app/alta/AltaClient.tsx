@@ -99,6 +99,7 @@ function AltaForm({
 }) {
   const [draft, setDraft] = React.useState<PhoneDraft>(initialDraft);
   const [errors, setErrors] = React.useState<FormErrors>({});
+  const [isVercel, setIsVercel] = React.useState(true);
   const [selectedFile, setSelectedFile] = React.useState<File | null>(null);
   const [uploadingImage, setUploadingImage] = React.useState(false);
   const [uploadError, setUploadError] = React.useState<string | null>(null);
@@ -330,13 +331,45 @@ function AltaForm({
               </div>
 
               <div className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-                  Alternativa
-                </p>
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+                      Entorno
+                    </p>
+                    <p className="mt-1 text-sm text-slate-700">¿Estás usando Vercel?</p>
+                  </div>
 
-                <Button type="button" className="mt-4 h-12 w-full text-base" onClick={openImageDialog}>
-                  Subir una imagen local a la computadora
-                </Button>
+                  <div className="inline-flex rounded-full bg-white p-1 ring-1 ring-slate-200">
+                    <Button
+                      type="button"
+                      variant={isVercel ? "primary" : "secondary"}
+                      className="rounded-full px-3 py-1.5 text-xs"
+                      onClick={() => setIsVercel(true)}
+                    >
+                      Sí
+                    </Button>
+                    <Button
+                      type="button"
+                      variant={!isVercel ? "primary" : "secondary"}
+                      className="rounded-full px-3 py-1.5 text-xs"
+                      onClick={() => setIsVercel(false)}
+                    >
+                      No
+                    </Button>
+                  </div>
+                </div>
+
+                {!isVercel ? (
+                  <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+                      Alternativa
+                    </p>
+
+                    <Button type="button" className="mt-4 h-12 w-full text-base" onClick={openImageDialog}>
+                      Subir una imagen local a la computadora
+                    </Button>
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>
