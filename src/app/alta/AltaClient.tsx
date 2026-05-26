@@ -321,7 +321,6 @@ function AltaForm({
               <p className="mt-1 text-xs text-slate-500">
                 Usa una URL externa o un archivo dentro de <span className="font-semibold">/localPhones</span>.
               </p>
-
               <div className="mt-4">
                 <label className="text-xs font-semibold text-slate-500">URL de imagen o nombre local</label>
                 <div className="mt-2">
