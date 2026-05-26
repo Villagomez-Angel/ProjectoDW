@@ -9,6 +9,7 @@ import { Select } from "@/components/ui/Select";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { useInventory, type SortMode } from "@/context/InventoryContext";
 import type { Phone } from "@/types/inventory";
+import { generateInventoryPDF } from "@/utils/generatePdf";
 
 /**
  * Normaliza texto libre para búsquedas insensibles a mayúsculas y espacios.
@@ -133,7 +134,7 @@ export default function InventarioPage() {
           </div>
 
           <div className="flex items-end justify-start lg:justify-end">
-            <Button type="button" onClick={() => {}}>
+            <Button type="button" onClick={() => generateInventoryPDF(filtered)}>
               Imprimir reporte
             </Button>
           </div>

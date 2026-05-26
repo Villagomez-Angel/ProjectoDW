@@ -9,6 +9,7 @@ import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { PhoneImage } from "@/components/inventory/PhoneImage";
 import { formatCurrency } from "@/utils/format";
 import { useInventory } from "@/context/InventoryContext";
+import { toast } from "react-toastify";
 
 /**
  * Modal principal de detalle del producto.
@@ -121,8 +122,10 @@ export function PhoneDetailsModal({
         description="Esta acción no se puede deshacer. ¿Deseas eliminar este celular del inventario?"
         confirmText="Sí, eliminar"
         cancelText="Cancelar"
-        onConfirm={() => {
-          void deletePhone(phone.id);
+        onConfirm={async () => {
+          await deletePhone(phone.id);
+          toast.success("¡Celular eliminado correctamente!");
+          setConfirmOpen(false);
           onClose();
         }}
         onClose={() => setConfirmOpen(false)}

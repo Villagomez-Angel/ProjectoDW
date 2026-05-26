@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { toast } from "react-toastify";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { TextArea } from "@/components/ui/TextArea";
@@ -77,9 +78,17 @@ export default function AltaClient() {
             }
       }
       onSave={async (draft) => {
-        if (editing) await updatePhone(editing.id, draft);
-        else await createPhone(draft);
-        router.push("/inventario");
+        if (editing) {
+          await updatePhone(editing.id, draft);
+          toast.success("¡Celular actualizado correctamente!");
+        } else {
+          await createPhone(draft);
+          toast.success("¡El celular se ha guardado en la base de datos correctamente!");
+        }
+        
+        setTimeout(() => {
+          router.push("/inventario");
+        }, 1500);
       }}
       onCancel={() => router.push("/inventario")}
     />
