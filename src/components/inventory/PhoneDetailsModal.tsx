@@ -27,8 +27,9 @@ export function PhoneDetailsModal({
   onClose: () => void;
 }) {
   const router = useRouter();
-  const { deletePhone } = useInventory();
+  const { deletePhone, addToCart } = useInventory();
   const [confirmOpen, setConfirmOpen] = React.useState(false);
+  const [addedOpen, setAddedOpen] = React.useState(false);
 
   if (!phone) {
     return (
@@ -46,7 +47,15 @@ export function PhoneDetailsModal({
         onClose={onClose}
         footer={
           <>
-            <Button variant="secondary" type="button" onClick={() => {}}>
+            <Button
+              variant="secondary"
+              type="button"
+              onClick={() => {
+                addToCart(phone);
+                toast.success("Producto añadido al carrito");
+                setAddedOpen(true);
+              }}
+            >
               Comprar
             </Button>
             <Button
@@ -130,6 +139,22 @@ export function PhoneDetailsModal({
         }}
         onClose={() => setConfirmOpen(false)}
       />
+
+      <Modal
+        open={addedOpen}
+        title="Agregado al carrito"
+        onClose={() => setAddedOpen(false)}
+        className="max-w-md"
+      >
+        <div className="space-y-4">
+          <p className="text-sm leading-relaxed text-slate-600">Producto agregado al carrito correctamente.</p>
+          <div className="flex justify-end">
+            <Button variant="primary" onClick={() => setAddedOpen(false)} type="button">
+              Genial
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </>
   );
 }

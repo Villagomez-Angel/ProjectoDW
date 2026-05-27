@@ -22,6 +22,11 @@ type InventoryContextValue = {
 
   getPhoneById: (id: PhoneId) => Phone | undefined;
 
+  cartItems: Phone[];
+  addToCart: (phone: Phone) => void;
+  removeFromCart: (id: PhoneId) => void;
+  clearCart: () => void;
+
   sortMode: SortMode;
   setSortMode: (mode: SortMode) => void;
   query: string;
@@ -42,6 +47,26 @@ export function InventoryProvider({ children }: { children: React.ReactNode }) {
 
   const [sortMode, setSortMode] = React.useState<SortMode>("ASC");
   const [query, setQuery] = React.useState("");
+  const [cartItems, setCartItems] = React.useState<Phone[]>([]);
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const raw = window.localStorage.getItem("cb.cart.v1");
+      if (!raw) return;
+      const parsed = JSON.parse(raw) as Phone[];
+      if (Array.isArray(parsed)) {
+        setCartItems(parsed);
+      }
+    } catch {
+      // ignore invalid local storage
+    }
+  }, []);
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") return;
+    window.localStorage.setItem("cb.cart.v1", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   React.useEffect(() => {
     let active = true;
@@ -57,7 +82,7 @@ export function InventoryProvider({ children }: { children: React.ReactNode }) {
           await importPhonesAction(parsed);
         }
       } catch {
-        // ignore invalid local storage
+        // Ignorará el entorno local si el formato es inválido o la importación falla, para evitar bloquear la app.
       } finally {
         window.localStorage.removeItem(key);
       }
@@ -113,6 +138,21 @@ export function InventoryProvider({ children }: { children: React.ReactNode }) {
     [phones]
   );
 
+  const addToCart = React.useCallback((phone: Phone) => {
+    setCartItems((prev) => {
+      if (prev.some((item) => item.id === phone.id)) return prev;
+      return [...prev, phone];
+    });
+  }, []);
+
+  const removeFromCart = React.useCallback((id: PhoneId) => {
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
+  }, []);
+
+  const clearCart = React.useCallback(() => {
+    setCartItems([]);
+  }, []);
+
   const value: InventoryContextValue = {
     phones,
     loading,
@@ -120,6 +160,10 @@ export function InventoryProvider({ children }: { children: React.ReactNode }) {
     updatePhone,
     deletePhone,
     getPhoneById,
+    cartItems,
+    addToCart,
+    removeFromCart,
+    clearCart,
     sortMode,
     setSortMode,
     query,

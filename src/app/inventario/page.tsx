@@ -3,6 +3,7 @@
 import * as React from "react";
 import { PhoneCard } from "@/components/inventory/PhoneCard";
 import { PhoneDetailsModal } from "@/components/inventory/PhoneDetailsModal";
+import { CartModal } from "@/components/inventory/CartModal";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
@@ -44,9 +45,10 @@ function sortPhones(phones: Phone[], mode: SortMode) {
 }
 
 export default function InventarioPage() {
-  const { phones, loading, sortMode, setSortMode, query, setQuery } = useInventory();
+  const { phones, loading, sortMode, setSortMode, query, setQuery, cartItems } = useInventory();
   const [selected, setSelected] = React.useState<Phone | null>(null);
   const [open, setOpen] = React.useState(false);
+  const [cartOpen, setCartOpen] = React.useState(false);
 
   const q = normalize(query);
   const filtered = React.useMemo(() => {
@@ -95,6 +97,11 @@ export default function InventarioPage() {
         eyebrow="Inventario"
         title="Gestiona tus celulares"
         description="Explora, ordena y busca entre los productos registrados en tu tienda."
+        action={
+          <Button type="button" variant="secondary" onClick={() => setCartOpen(true)}>
+            Carrito ({cartItems.length})
+          </Button>
+        }
       />
 
       {/* DIV SUPERIOR: toolbar */}
@@ -174,6 +181,7 @@ export default function InventarioPage() {
           setSelected(null);
         }}
       />
+      <CartModal open={cartOpen} onClose={() => setCartOpen(false)} />
     </div>
   );
 }
